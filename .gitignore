@@ -1,0 +1,19 @@
+# --- Python Basics ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# --- Data Files ---
+
+data/raw/*.csv
+data/processed/*.csv
+data/processed/*.parquet
+
+# --- Docker ---
+pg_data/
+
+# --- OS Junk ---
+.DS_Store
+Thumbs.db
