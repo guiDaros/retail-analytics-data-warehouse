@@ -66,3 +66,19 @@ CREATE TABLE fact_sales (
 CREATE INDEX idx_fact_sales_customer ON fact_sales(customer_key);
 CREATE INDEX idx_fact_sales_product ON fact_sales(product_key);
 CREATE INDEX idx_fact_sales_date ON fact_sales(date_id);
+
+-- =============================================
+-- STAGING AREA (Raw Data)
+-- =============================================
+DROP TABLE IF EXISTS staging_retail;
+
+CREATE TABLE staging_retail (
+    invoice_no    VARCHAR(50),
+    stock_code    VARCHAR(50),
+    description   TEXT,
+    quantity      INTEGER,
+    invoice_date  TIMESTAMP,
+    unit_price    NUMERIC(10, 2),
+    customer_id   VARCHAR(50),
+    country       VARCHAR(100)
+);
