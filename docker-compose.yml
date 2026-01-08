@@ -4,14 +4,16 @@ services:
   postgres:
     image: postgres:15-alpine
     container_name: retail_postgres
+    env_file:
+      - .env
     environment:
-      POSTGRES_USER: retail_user
-      POSTGRES_PASSWORD: retail_password
-      POSTGRES_DB: retail_dw
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
-      - "5432:5432"
+      # use 5439 on Windows to avoid conflicts with standard 5432
+      - "5439:5432"
     volumes:
-      # Persist data so don't lose it restarting Docker
       - pg_data:/var/lib/postgresql/data
 
 volumes:
