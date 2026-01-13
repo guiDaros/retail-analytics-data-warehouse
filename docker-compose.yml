@@ -5,16 +5,34 @@ services:
     image: postgres:15-alpine
     container_name: retail_postgres
     env_file:
-      - .env
+      - .env  
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}      
+      POSTGRES_PASSWORD: ${DB_PASSWORD} 
+      POSTGRES_DB: ${DB_NAME}       
     ports:
-      # use 5439 on Windows to avoid conflicts with standard 5432
       - "5439:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
+    networks:
+      - retail_network
+
+  metabase:
+    image: metabase/metabase:latest
+    container_name: retail_metabase
+    ports:
+      - "3000:3000"
+    volumes:
+      - metabase_data:/metabase-data
+    networks:
+      - retail_network
+    depends_on:
+      - postgres
 
 volumes:
   pg_data:
+  metabase_data:
+
+networks:
+  retail_network:
+    driver: bridge
